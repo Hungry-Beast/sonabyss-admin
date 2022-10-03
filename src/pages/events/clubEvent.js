@@ -28,12 +28,10 @@ const EventDesc = styled(TextField)`
 `;
 
 const ClubEvent = (props) => {
-
   // Handling DatePicker
   const [date, setDate] = useState("");
   var selectedDate = date.$D + "/" + (date.$M + 1) + "/" + date.$y;
   // console.log(selectedDate);
-
 
   // handle timePicker
   const [time, setTime] = useState("");
@@ -42,22 +40,18 @@ const ClubEvent = (props) => {
   };
   // console.log(selecetdTime.Time);
 
-
   // handle clubname selection
   const [club, setClub] = useState(null);
   const flatProps = {
     options: clubs.map((option) => option.title),
   };
-  console.log(club);
+  // console.log(club);
 
-
-
-// For Switch
+  // For Switch
   const [checked, setChecked] = React.useState(true);
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
-
 
   // Handle Form Submit
   const handleSubmit = (e) => {
@@ -67,21 +61,17 @@ const ClubEvent = (props) => {
     myHeaders.append("Authorization", "Bearer " + user.authToken);
 
     var formdata = new FormData();
-    // formdata.append("name", "gabbargang");
 
-    // formdata.append("date", selectedDate);
-    formdata.append("date", "13-10-2022");
-    // formdata.append("time", selecetdTime.Time);
-    formdata.append("time", "12:00");
+    formdata.append("name", e.target.name.value);
+    formdata.append("date", selectedDate);
+    formdata.append("time", selecetdTime.Time);
     formdata.append("club", "6322e56fb3ac64c6f9b87b6e");
-    formdata.append("clubName", "name");
-    // formdata.append("desc", e.target.desc.value);
-    formdata.append("desc", "hhhhh");
-    // formdata.append("file", e.target.pic.files[0]);
-    formdata.append("file", e.target.pic.files[0]);
-
-    // formdata.append("venue", "kaali pahadi");
-    // formdata.append("SwitchButton", "checked");
+    formdata.append("clubName", club);
+    formdata.append("image", e.target.pic.files[0]);
+    formdata.append("desc", e.target.desc.value);
+    formdata.append("venue", e.target.venue.value);
+    formdata.append("isOpen", checked);
+    formdata.append("duration", e.target.duration.value);
 
     var requestOptions = {
       method: "POST",
@@ -91,7 +81,7 @@ const ClubEvent = (props) => {
     };
 
     fetch(prodUrl + "/events", requestOptions)
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
   };
@@ -155,7 +145,13 @@ const ClubEvent = (props) => {
                   onChange={(newValue) => {
                     setDate(newValue);
                   }}
-                  renderInput={(params) => <TextField {...params} sx={{ marginBottom: "10px" }} fullWidth />}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      sx={{ marginBottom: "10px" }}
+                      fullWidth
+                    />
+                  )}
                 />
               </LocalizationProvider>
             </Grid>
@@ -193,6 +189,18 @@ const ClubEvent = (props) => {
                 rows={5}
                 name="desc"
                 label="Desc ..."
+                fullWidth
+                // required
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                sx={{ marginBottom: "10px" }}
+                name="duration"
+                label="Duration"
+                placeholder="Enter the duration of event"
+                variant="outlined"
                 fullWidth
                 // required
               />
