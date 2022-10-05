@@ -46,11 +46,9 @@ const Login = () => {
         if (result.success) {
           localStorage.setItem("user", JSON.stringify(result));
           navigate("/");
+        } else {
+          throw new Error(result.error);
         }
-        else{
-          throw new Error(result.error)
-        }
-
       })
       .catch((error) => console.log("error", error));
   };
@@ -81,8 +79,7 @@ const Login = () => {
         gutterBottom
         variant="h3"
         align="center"
-        sx={{ fontFamily: "Roboto" }}
-      >
+        sx={{ fontFamily: "Roboto" }}>
         Login Page
       </Typography>
       <Card sx={{ maxWidth: "450px", margin: "0 auto", padding: "20px 5px" }}>
@@ -93,9 +90,10 @@ const Login = () => {
             <Grid item xs={12}>
               <TextField
                 sx={{ margin: "5px auto" }}
-                name="regNo"
-                label="Registration no"
-                placeholder="Enter your registration no"
+                name="phoneNo"
+                label="Phone No."
+                type={"number"}
+                placeholder="Enter your Phone no"
                 variant="outlined"
                 fullWidth
                 required
@@ -119,8 +117,7 @@ const Login = () => {
                         aria-label="toggle password visibility"
                         onClick={handleClickShowPassword}
                         onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
+                        edge="end">
                         {values.showPassword ? (
                           <VisibilityOff />
                         ) : (
@@ -142,8 +139,7 @@ const Login = () => {
                 type="submit"
                 variant="contained"
                 color="primary"
-                fullWidth
-              >
+                fullWidth>
                 Submit
               </Button>
             </Grid>

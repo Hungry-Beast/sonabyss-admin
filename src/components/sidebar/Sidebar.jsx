@@ -14,14 +14,26 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
-
+import { prodUrl } from "../../config";
 const Sidebar = () => {
+  const fetchAllCulbs = async () => {
+    const response = await fetch(`${prodUrl}/clubs`, {
+      method: "GET",
+      // mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const json = await response.json();
+    console.log(json);
+  };
+  fetchAllCulbs();
   const { dispatch } = useContext(DarkModeContext);
   return (
     <div className="sidebar">
       <div className="top">
         <Link to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">lamadmin</span>
+          <span className="logo">Sonabyss admin</span>
         </Link>
       </div>
       <hr />
@@ -32,7 +44,7 @@ const Sidebar = () => {
             <DashboardIcon className="icon" />
             <span>Dashboard</span>
           </li>
-          <p className="title">LISTS</p>
+          <p className="title">CLUBS</p>
           <Link to="/users" style={{ textDecoration: "none" }}>
             <li>
               <PersonOutlineIcon className="icon" />
@@ -89,12 +101,10 @@ const Sidebar = () => {
       <div className="bottom">
         <div
           className="colorOption"
-          onClick={() => dispatch({ type: "LIGHT" })}
-        ></div>
+          onClick={() => dispatch({ type: "LIGHT" })}></div>
         <div
           className="colorOption"
-          onClick={() => dispatch({ type: "DARK" })}
-        ></div>
+          onClick={() => dispatch({ type: "DARK" })}></div>
       </div>
     </div>
   );
