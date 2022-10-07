@@ -1,2 +1,3 @@
-export const prodUrl="https://sonabyss.herokuapp.com"
-export const localUrl = "mongodb://localhost:27017"
+const localUrl = "http://localhost:5000";
+const prod = "https://sonabyss.herokuapp.com";
+export const prodUrl = localUrl;

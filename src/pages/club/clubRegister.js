@@ -44,11 +44,11 @@ const CreateClub = () => {
     e.preventDefault();
     var myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer " + user.authToken);
-
-    myHeaders.append("Content-Type", "application/json");
+    // myHeaders.append("Content-Type", "application/json");
     console.log(e.target.poster.files);
-    var formdata = new FormData();
+    const formdata = new FormData();
     formdata.append("file", e.target.poster.files[0]);
+
     formdata.append("name", e.target.clubname.value);
     formdata.append("desc", e.target.desc.value);
 
@@ -56,7 +56,6 @@ const CreateClub = () => {
       method: "POST",
       headers: myHeaders,
       body: formdata,
-      redirect: "follow",
     };
 
     fetch(prodUrl + "/clubs", requestOptions)

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -8,6 +8,10 @@ import {
   Typography,
   Autocomplete,
   Switch,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
 } from "@mui/material";
 // import dayjs from 'dayjs/locale/*'
 
@@ -29,12 +33,12 @@ const EventDesc = styled(TextField)`
   margin-bottom: 10px !important;
 `;
 
+const ClubSelect = styled(Select)`
+  width: 100%;
+  /* margin: 1rem 0; */
+`;
+
 const ClubEvent = (props) => {
-
-  // handling errors 
-  const { register, formState: { errors }} = useForm();
-      console.log(errors);
-
   // Handling DatePicker
   const [date, setDate] = useState("");
   var selectedDate = date.$D + "/" + (date.$M + 1) + "/" + date.$y;
@@ -42,17 +46,39 @@ const ClubEvent = (props) => {
 
   // handle timePicker
   const [time, setTime] = useState("");
+  const [club, setClub] = useState([]);
+
   const selecetdTime = {
     Time: time && time.$d.toLocaleTimeString(),
   };
   // console.log(selecetdTime.Time);
 
   // handle clubname selection
-  const [club, setClub] = useState(null);
+  // const [club, setClub] = useState(null);
+  console.log(club);
+
+  const [clubData, setClubData] = useState([]);
   const flatProps = {
-    options: clubs.map((option) => option.title),
+    options: clubData.map((option) => option.title),
   };
-  // console.log(club);
+  const getClub = () => {
+    fetch(prodUrl + "/clubs")
+      .then((data) => data.json())
+      .then((data) => {
+        console.log(data);
+        let clubsList = [];
+        data.map((club) => {
+          clubsList.push({
+            label: club.name,
+            value: club["_id"],
+          });
+        });
+        setClubData(clubsList);
+      });
+  };
+  useEffect(() => {
+    getClub();
+  }, []);
 
   // For Switch
   const [checked, setChecked] = React.useState(true);
@@ -69,9 +95,11 @@ const ClubEvent = (props) => {
 
     var formdata = new FormData();
 
-    formdata.append("name", e.target.name.value);
     formdata.append("date", selectedDate);
-    formdata.append("time", selecetdTime.Time);
+
+    // formdata.append("date", "13-10-2022");
+    // formdata.append("time", selecetdTime.Time);
+    formdata.append("time", "12:00");
     formdata.append("club", "6322e56fb3ac64c6f9b87b6e");
     formdata.append("clubName", club);
     formdata.append("image", e.target.pic.files[0]);
@@ -92,6 +120,7 @@ const ClubEvent = (props) => {
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
   };
+  console.log(club);
 
   return (
     <div>
@@ -124,7 +153,7 @@ const ClubEvent = (props) => {
             </Grid>
 
             <Grid item xs={12}>
-              <Autocomplete
+              {/* <Autocomplete
                 sx={{ marginBottom: "10px" }}
                 {...flatProps}
                 id="controlled-demo"
@@ -142,7 +171,30 @@ const ClubEvent = (props) => {
                 )}
                 fullWidth
                 // required
-              />
+              /> */}
+              <FormControl
+                fullWidth
+                sx={{ minWidth: "100%", margin: "1rem 0" }}
+              >
+                <InputLabel id="demo-simple-select-standard-label">
+                  Club
+                </InputLabel>
+                <ClubSelect
+                  labelId="demo-simple-select-standard-label"
+                  id="demo-simple-select-standard"
+                  // label="Club"
+                  label="Club"
+                  value={club}
+                  onChange={(e) => {
+                    setClub(e.target.value);
+                  }}
+                >
+                  {clubData.length !== 0 &&
+                    clubData.map((club) => (
+                      <MenuItem value={club.value}>{club.label}</MenuItem>
+                    ))}
+                </ClubSelect>
+              </FormControl>
             </Grid>
 
             <Grid item xs={12}>

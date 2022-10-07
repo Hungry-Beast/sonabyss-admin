@@ -14,10 +14,15 @@ import {
 } from "@mui/material";
 import { VisibilityOff, Visibility, ErrorSharp } from "@mui/icons-material";
 import { prodUrl } from "../../config";
+import { useNavigate } from "react-router-dom";
 
 // import { useForm } from "react-hook-form";
 
 const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  // const handleClickShowPassword = () => setShowPassword(!showPassword);
+  // const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,8 +46,15 @@ const Login = () => {
     fetch(prodUrl + "/api/auth/login", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        localStorage.setItem("user", JSON.stringify(result));
         console.log(result);
+        if (result.success) {
+          localStorage.setItem("user", JSON.stringify(result));
+          navigate("/");
+        }
+        else{
+          throw new Error(result.error)
+        }
+
       })
       .catch((error) => console.log("error", error));
   };
