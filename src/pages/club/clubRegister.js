@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Paper, TextField, Button } from "@mui/material";
 import { user } from "../../localStore";
-import { prodUrl } from "../../config";
+import { localUrl, prodUrl } from "../../config";
 
 const ClubForm = styled.form`
   display: flex;
@@ -17,7 +17,6 @@ const ClubPaper = styled(Paper)`
   background-color: red;
 
   padding: 2em 3em;
-  /* border: 2px solid red; */
 `;
 
 const Heading = styled.h1`
@@ -31,19 +30,14 @@ const ClubInput = styled(TextField)`
 
 const ChoosePoster = styled.input`
   margin: 25px 0;
-  /* font-family: sans-serif; */
-  /* padding: 10px; */
 `;
 
 const ClubDescription = styled(TextField)`
   margin-bottom: 25px !important;
   border-radius: 5px !important;
-  /* padding: 10px !important; */
 `;
 
-const ClubButton = styled(Button)`
-  /* margin: 20px; */
-`;
+const ClubButton = styled(Button)``;
 
 const CreateClub = () => {
   const handleSubmit = (e) => {
@@ -65,8 +59,12 @@ const CreateClub = () => {
     };
 
     fetch(prodUrl + "/clubs", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
+      // fetch(localUrl, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        // localStorage.setItem("clubId", JSON.stringify(result));
+        console.log(result);
+      })
       .catch((error) => console.log("error", error));
   };
   return (

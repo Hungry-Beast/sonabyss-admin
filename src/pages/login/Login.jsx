@@ -17,13 +17,11 @@ import { prodUrl } from "../../config";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  // const handleClickShowPassword = () => setShowPassword(!showPassword);
-  // const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -129,7 +127,10 @@ const Login = () => {
                   label="Password"
                   placeholder="Enter your password"
                   name="pass"
-                  required
+                  // required
+                  // {...register("pass", { required: "Password is required."})}
+                  // error={Boolean(errors.pass)}
+                  // helperText={errors.pass?.message}
                 />
               </FormControl>
             </Grid>
