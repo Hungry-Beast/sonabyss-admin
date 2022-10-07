@@ -12,27 +12,21 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
-import { VisibilityOff, Visibility, ErrorSharp } from "@mui/icons-material";
+import { VisibilityOff, Visibility } from "@mui/icons-material";
 import { prodUrl } from "../../config";
 import { useNavigate } from "react-router-dom";
 
-// import { useForm } from "react-hook-form";
-
 const Login = () => {
-  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  // const handleClickShowPassword = () => setShowPassword(!showPassword);
-  // const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setFormErrors(validate(values));
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-      regNo: e.target.regNo.value,
+      phoneNo: e.target.phoneNo.value,
       password: e.target.pass.value,
     });
 
@@ -50,11 +44,9 @@ const Login = () => {
         if (result.success) {
           localStorage.setItem("user", JSON.stringify(result));
           navigate("/");
+        } else {
+          throw new Error(result.error);
         }
-        else{
-          throw new Error(result.error)
-        }
-
       })
       .catch((error) => console.log("error", error));
   };
@@ -79,28 +71,6 @@ const Login = () => {
     event.preventDefault();
   };
 
-// Error Handling
-
-// const { register, formState: { errors } } = useForm();
-// console.log(errors);
-
-const [formErrors, setFormErrors] = useState({});
-
-const validate = (values) => {
-  const error = {}
-  const regex =  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  if (!values.username) {
-      error.username = "Username is required"
-  }
-  if (!values.Password) {
-      error.username = "Password is required"
-  }
-
-  return error;
-
-
-}
-
   return (
     <div>
       <Typography
@@ -119,29 +89,15 @@ const validate = (values) => {
             <Grid item xs={12}>
               <TextField
                 sx={{ margin: "5px auto" }}
-                name="regNo"
-                label="Registration no"
-                placeholder="Enter your registration no"
+                name="phoneNo"
+                label="Phone no"
+                placeholder="Enter your Phone Number"
+                type={"number"}
                 variant="outlined"
                 fullWidth
-                // required
+                required
               />
             </Grid>
-
-            {/* <Grid item xs={12}>
-              <TextField 
-                id="outlined-basic"
-                name="firstName"
-                label="First Name"
-                variant="outlined"
-                fullWidth
-                {...register("firstName", { required: "First Name is required."})}
-                error={Boolean(errors.firstName)}
-                helperText={errors.firstName?.message}
-
-              />
-
-            </Grid> */}
 
             <Grid item xs={12}>
               <FormControl variant="outlined" fullWidth>
