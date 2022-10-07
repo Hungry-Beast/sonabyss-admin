@@ -77,8 +77,7 @@ const Login = () => {
         gutterBottom
         variant="h3"
         align="center"
-        sx={{ fontFamily: "Roboto" }}
-      >
+        sx={{ fontFamily: "Roboto" }}>
         Login Page
       </Typography>
       <Card sx={{ maxWidth: "450px", margin: "0 auto", padding: "20px 5px" }}>
@@ -90,7 +89,7 @@ const Login = () => {
               <TextField
                 sx={{ margin: "5px auto" }}
                 name="phoneNo"
-                label="Phone no"
+                label="Phone No."
                 placeholder="Enter your Phone Number"
                 type={"number"}
                 variant="outlined"
@@ -116,8 +115,7 @@ const Login = () => {
                         aria-label="toggle password visibility"
                         onClick={handleClickShowPassword}
                         onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
+                        edge="end">
                         {values.showPassword ? (
                           <VisibilityOff />
                         ) : (
@@ -142,8 +140,7 @@ const Login = () => {
                 type="submit"
                 variant="contained"
                 color="primary"
-                fullWidth
-              >
+                fullWidth>
                 Submit
               </Button>
             </Grid>
