@@ -12,15 +12,17 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
-import { VisibilityOff, Visibility } from "@mui/icons-material";
+import { VisibilityOff, Visibility, ErrorSharp } from "@mui/icons-material";
 import { prodUrl } from "../../config";
 
+// import { useForm } from "react-hook-form";
+
 const Login = () => {
-  // const [showPassword, setShowPassword] = useState(false);
-  // const handleClickShowPassword = () => setShowPassword(!showPassword);
-  // const handleMouseDownPassword = () => setShowPassword(!showPassword);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    setFormErrors(validate(values));
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -35,7 +37,6 @@ const Login = () => {
       body: raw,
       redirect: "follow",
     };
-
 
     fetch(prodUrl + "/api/auth/login", requestOptions)
       .then((response) => response.json())
@@ -66,6 +67,28 @@ const Login = () => {
     event.preventDefault();
   };
 
+// Error Handling
+
+// const { register, formState: { errors } } = useForm();
+// console.log(errors);
+
+const [formErrors, setFormErrors] = useState({});
+
+const validate = (values) => {
+  const error = {}
+  const regex =  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  if (!values.username) {
+      error.username = "Username is required"
+  }
+  if (!values.Password) {
+      error.username = "Password is required"
+  }
+
+  return error;
+
+
+}
+
   return (
     <div>
       <Typography
@@ -89,9 +112,24 @@ const Login = () => {
                 placeholder="Enter your registration no"
                 variant="outlined"
                 fullWidth
-                required
+                // required
               />
             </Grid>
+
+            {/* <Grid item xs={12}>
+              <TextField 
+                id="outlined-basic"
+                name="firstName"
+                label="First Name"
+                variant="outlined"
+                fullWidth
+                {...register("firstName", { required: "First Name is required."})}
+                error={Boolean(errors.firstName)}
+                helperText={errors.firstName?.message}
+
+              />
+
+            </Grid> */}
 
             <Grid item xs={12}>
               <FormControl variant="outlined" fullWidth>
@@ -123,7 +161,10 @@ const Login = () => {
                   label="Password"
                   placeholder="Enter your password"
                   name="pass"
-                  required
+                  // required
+                  // {...register("pass", { required: "Password is required."})}
+                  // error={Boolean(errors.pass)}
+                  // helperText={errors.pass?.message}
                 />
               </FormControl>
             </Grid>

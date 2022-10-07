@@ -20,6 +20,8 @@ import { prodUrl } from "../../config";
 import { user } from "../../localStore";
 import { clubs } from "../../data";
 
+import { useForm } from "react-hook-form";
+
 const ChooseFile = styled.input`
   margin-bottom: 10px;
 `;
@@ -28,6 +30,11 @@ const EventDesc = styled(TextField)`
 `;
 
 const ClubEvent = (props) => {
+
+  // handling errors 
+  const { register, formState: { errors }} = useForm();
+      console.log(errors);
+
   // Handling DatePicker
   const [date, setDate] = useState("");
   var selectedDate = date.$D + "/" + (date.$M + 1) + "/" + date.$y;
@@ -109,7 +116,10 @@ const ClubEvent = (props) => {
                 placeholder="Enter Name"
                 variant="outlined"
                 fullWidth
-                // required
+                autoComplete="off"
+                // {...register("test", {
+                //   required: 'Name is required'
+                // })}
               />
             </Grid>
 
