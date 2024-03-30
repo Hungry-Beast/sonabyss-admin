@@ -29,56 +29,28 @@ const Single1 = () => {
     redirect: "follow",
   };
   useEffect(() => {
-
+    setLoading(true)
     fetch(url, requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        setEventList(result.reverse());
+        console.log(result.flat())
+        setEventList(result.flat().reverse());
         setLoading(false)
       })
-      .catch((error) => console.log("error", error));
+      .catch((error) => {
+        setLoading(false)
+        console.log("error", error)
+      });
     console.log(eventList)
 
   }, [url]);
 
-  // const editRequest = (id, formdata) => {
+  useEffect(() => {
 
-  //   const requestOptions = {
-  //     method: 'PUT',
-  //     headers: myHeaders,
-  //     body: formdata,
-  //     redirect: 'follow'
-  //   }
-  //   fetch(`${prodUrl}/events/edit/${id}`, requestOptions)
-  //     .then(response => response.json())
-  //     .then(result => {
-  //       console.log(result)
-  //       const newEvent = eventList.forEach(event => {
-  //         if (event._id === id) {
-  //           event.name = result.name;
-  //           event.date = result.date;
-  //           event.time = result.time;
-  //           event.club = result.clubId;
-  //           event.clubName = result.clubName;
-  //           event.desc = result.desc;
-  //           event.date = result.date;
-  //           event.time = result.time;
-  //           event.duration = result.duration;
-  //           event.venue = result.venue;
-  //           event.isOpen = result.isOpen;
-  //           event.isPaid = result.isPaid;
-  //           event.priceO = result.priceO ? result.priceO : "";
-  //           event.priceN = result.priceN ? result.priceN : "";
-  //           event.isMainEvent = result.isMainEvent
-  //           event.image = result.image
-  //         }
-  //         console.log(newEvent)
-  //         // setEventList(newEvent)
-  //       })
-  //     })
-  //     .catch(error => console.log('error', error));
+  }, [eventList])
 
-  // }
+
+
   let formdata = ''
   const editEvent = (ele) => {
     let newEle = []
@@ -89,19 +61,13 @@ const Single1 = () => {
     };
 
 
-    // const newEvent = eventList.filter(e => e._id === ele._id)
-    // console.log(newEvent)
-    // navigate('/edit', {
-    //   state: [newEvent, setEventList, eventList]
-    //   // formdata: JSON.stringify({ name, date, time, clubName, desc, })
-    // })
-
     fetch(`${prodUrl}/events/noAuth/${ele.club}`, requestOptions)
       .then(response => response.json())
       .then(result => {
-        console.log(result)
-        newEle = result.filter(e => ele._id === e._id)
+        console.log(result.flat())
+        newEle = result.flat().filter(e => ele.id === e['_id'])
         newEle = newEle[0];
+        console.log(newEle)
         navigate('/edit', {
           state: [newEle, eventList]
         })
@@ -113,7 +79,8 @@ const Single1 = () => {
 
   }
   const deleteEvent = (id) => {
-
+    const ans = window.confirm('Are you sure?')
+    if (!ans) return
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${authToken}`);
 
@@ -125,12 +92,16 @@ const Single1 = () => {
     fetch(`${prodUrl}/events/delete/${id}`, requestOptions)
       .then(response => response.json())
       .then(result => {
-
+        if (result.error) throw result
         const a = eventList.filter(e => e._id !== result.event._id)
-        console.log(eventList.filter(e => e._id !== result.event._id), a);
+        // console.log(result)
         setEventList(a)
+        alert('Successfully deleted!');
       })
-      .catch(error => console.log('error', error));
+      .catch(error => {
+        console.log('error', error)
+        alert(error.error)
+      });
   }
 
 
@@ -167,7 +138,7 @@ const Single1 = () => {
                       <h1 className="title">Information</h1>
 
                       <div className="item">
-                        <img src={ele.image} alt="" className="itemImg" />
+                        <img src={ele.image} loading="lazy" alt="" className="itemImg" />
                         <div className="details">
                           <h1 className="itemTitle">{ele.name}</h1>
                           {/* <div className="detailItem">
@@ -192,7 +163,7 @@ const Single1 = () => {
                     <div className="head" style={{ display: 'flex', justifyContent: 'space-between' }}>
                       <CardActions>
                         <Button
-                          onClick={() => deleteEvent(ele["_id"])}
+                          onClick={() => deleteEvent(ele["id"])}
                           sx={{ color: "#6439ff", borderColor: "#6439ff" }}
                           variant="outlined"
                         >
@@ -202,7 +173,7 @@ const Single1 = () => {
                       <CardActions>
                         <Button
                           onClick={() =>
-                            navigate(`/registration/${ele["_id"]}`, {
+                            navigate(`/registration/${ele["id"]}`, {
                               state: ele,
                             })
                           }

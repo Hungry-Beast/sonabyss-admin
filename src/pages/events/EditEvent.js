@@ -53,10 +53,10 @@ const EditElub = () => {
     let stateEvent
     let setEventList
     // let eventList;
-    console.log(location.state)
     stateEvent = location.state[0];
     setEventList = location?.state[1]
     let eventList = location?.state[2]
+    console.log(setEventList)
     useEffect(() => {
         getClub();
         // if (stateEvent.isPaid) {
