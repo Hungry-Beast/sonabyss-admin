@@ -26,6 +26,7 @@ function App() {
             <Route path="login" element={<Login />} />
           </Route> */}
           <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
 
           <Route exact path='/edit' element={<EditEvent />} />
           {/* <Route path="/login" element={admin.current ? <Home /> : <Login />} /> */}
