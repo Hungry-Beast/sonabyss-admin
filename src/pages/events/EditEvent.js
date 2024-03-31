@@ -32,7 +32,7 @@ import "./clubevent.css";
 import { useRef } from "react";
 import { Close } from "@mui/icons-material";
 import moment from "moment";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const ClubSelect = styled(Select)`
   width: 100%;
