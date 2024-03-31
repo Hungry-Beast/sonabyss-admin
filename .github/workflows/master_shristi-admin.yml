@@ -28,12 +28,26 @@ jobs:
         run: |
           npm install
           npm run build --if-present
+      
+      - name: Zip artifact to upload
+      - run: |
+          zip -r node-app.zip .
 
-      - name: Upload artifact for deployment job
+
+-       name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
-          name: node-app
-          path: .
+            name: node-app
+            path: node-app.zip
+
+
+
+
+      # - name: Upload artifact for deployment job
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: node-app
+      #     path: .
 
   deploy:
     runs-on: ubuntu-latest
@@ -45,10 +59,20 @@ jobs:
       id-token: write #This is required for requesting the JWT
 
     steps:
+      # - name: Download artifact from build job
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: node-app
+
       - name: Download artifact from build job
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v2
         with:
           name: node-app
+          - run: |
+             unzip node-app.zip
+             rm node-app.zip
+
+
 
       - name: Login to Azure
         uses: azure/login@v1
