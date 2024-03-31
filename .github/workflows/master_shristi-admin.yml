@@ -42,7 +42,7 @@ jobs:
           npm run build
 
       - name: Zip artifact to upload
-        run: 7z a ${{ env.YOUR_ZIP_PACKAGE_NAME }} ${{ env.YOUR_AZURE_WEBAPP_PACKAGE_PATH }}
+        run: 7z a ${{ env.YOUR_ZIP_PACKAGE_NAME }}/build ${{ env.YOUR_AZURE_WEBAPP_PACKAGE_PATH }}
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
