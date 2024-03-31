@@ -30,7 +30,7 @@ jobs:
           npm run build --if-present
       
       - name: Zip artifact to upload
-      - run: |
+        run: |
           zip -r node-app.zip .
 
 
