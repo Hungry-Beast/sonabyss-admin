@@ -45,6 +45,8 @@ jobs:
   # Deploy the application to Azure
   deploy:
     runs-on: ubuntu-latest
+      id-token: write #This is required for requesting the JWT
+      
     needs: build
     environment:
       name: "Production"
