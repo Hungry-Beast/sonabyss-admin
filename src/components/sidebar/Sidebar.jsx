@@ -70,7 +70,7 @@ const Sidebar = () => {
           <li
             onClick={() => {
               localStorage.clear();
-              navigate("/login");
+              navigate("/");
             }}>
             <ExitToAppIcon className="icon" />
             <span>Logout</span>
