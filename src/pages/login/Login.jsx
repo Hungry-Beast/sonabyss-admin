@@ -18,6 +18,7 @@ import { VisibilityOff, Visibility } from "@mui/icons-material";
 import { prodUrl } from "../../config";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import "./login.scss";
 
 const Login = () => {
   const [isLoading, setisLoading] = useState(false);
@@ -58,7 +59,7 @@ const Login = () => {
         if (result.success) {
           localStorage.setItem("user", JSON.stringify(result));
 
-          console.log("Hi");
+          // console.log("Hi");
           navigate("/home");
         } else {
           throw new Error(result.error);
@@ -96,15 +97,15 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="cntr">
       <Typography
         gutterBottom
         variant="h3"
         align="center"
         sx={{ fontFamily: "Roboto" }}>
-        Login Page
+        Shristi Admin Login
       </Typography>
-      <Card sx={{ maxWidth: "450px", margin: "0 auto", padding: "20px 5px" }}>
+      <Card sx={{ minWidth: "600px", margin: "0 auto", padding: "20px 5px" }}>
         <CardContent>
           <form onSubmit={handleSubmit}>
             <Grid container spacing={1}></Grid>
@@ -129,7 +130,7 @@ const Login = () => {
                 </InputLabel>
                 <OutlinedInput
                   id="outlined-adornment-password"
-                  sx={{ marginBottom: "5px" }}
+                  sx={{ margin: "3px 0 0 0" }}
                   type={values.showPassword ? "text" : "password"}
                   value={values.password}
                   onChange={handleChange("password")}
@@ -161,6 +162,7 @@ const Login = () => {
                 type="submit"
                 variant="contained"
                 color="primary"
+                sx={{ margin: "2rem 0 auto auto" }}
                 fullWidth>
                 Submit
               </Button>
