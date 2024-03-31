@@ -69,8 +69,8 @@ jobs:
         with:
           name: node-app
       - run: |
-             unzip node-app.zip
-             rm node-app.zip
+          unzip node-app.zip
+          rm node-app.zip
 
 
 
