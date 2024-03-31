@@ -2,4 +2,3 @@
 const prod = "https://shristi-backend.azurewebsites.net";
 export const prodUrl = prod;
 
-
