@@ -2,12 +2,11 @@ import "./single.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { prodUrl } from "../../config";
 import { React, useEffect, useState } from "react";
 import { Backdrop, Button, CardActions, CircularProgress } from "@mui/material";
-import { Add, EditOutlined } from "@mui/icons-material";
-import parse from 'html-react-parser';
+import { Add } from "@mui/icons-material";
 
 
 
@@ -93,8 +92,8 @@ const Single1 = () => {
       .then(response => response.json())
       .then(result => {
         if (result.error) throw result
-        const a = eventList.filter(e => e._id !== result.event._id)
-        // console.log(result)
+        const a = eventList.filter(e => e.id !== result.event['_id'])
+
         setEventList(a)
         alert('Successfully deleted!');
       })

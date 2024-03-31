@@ -1,7 +1,7 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { userColumns } from "../../datatablesource";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { prodUrl } from "../../config";
 import jsPDF from "jspdf";
@@ -17,8 +17,6 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import styled from "styled-components";
 import { Cancel } from "@mui/icons-material";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
 import Swal from "sweetalert2";
 
 const VerifyDiv = styled.div`
@@ -26,7 +24,7 @@ const VerifyDiv = styled.div`
   justify-content: space-between;
   width: 100%;
 `;
-const VerifyButtons = styled.button``;
+
 const style = {
   position: "absolute",
   top: "50%",

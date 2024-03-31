@@ -25,17 +25,14 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import styled from "styled-components";
 import { prodUrl } from "../../config";
-import { user } from "../../localStore";
-import { clubs } from "../../data";
 import "react-quill/dist/quill.snow.css";
 import "../Quill/TextEditor.css";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import Sidebar from "../../components/sidebar/Sidebar";
 import "./clubevent.css";
 import { useRef } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Close, MicExternalOffRounded } from "@mui/icons-material";
+import { Close } from "@mui/icons-material";
 import moment from "moment";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ClubSelect = styled(Select)`
   width: 100%;
@@ -55,7 +52,7 @@ const EditElub = () => {
     // let eventList;
     stateEvent = location.state[0];
     setEventList = location?.state[1]
-    let eventList = location?.state[2]
+    // let eventList = location?.state[2]
     console.log(setEventList)
     useEffect(() => {
         getClub();

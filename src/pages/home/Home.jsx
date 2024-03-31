@@ -2,7 +2,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import "./home.scss";
 import { useEffect, useRef } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Dashboard from "../Dashboard/Dashboard";
 
 const Home = () => {

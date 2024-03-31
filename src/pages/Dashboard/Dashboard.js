@@ -1,47 +1,18 @@
 import "./dashboard.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { userColumns } from "../../datatablesource";
-import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { prodUrl } from "../../config";
-import jsPDF from "jspdf";
 import "jspdf-autotable";
-import { Backdrop, Button, CircularProgress } from "@mui/material";
+import { Backdrop, CircularProgress } from "@mui/material";
 const Dashboard = () => {
     const [newData, setNewData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const location = useLocation();
     var myHeaders = new Headers();
     const { authToken } = JSON.parse(localStorage.getItem("user"));
     myHeaders.append("Authorization", `Bearer ${authToken}`);
 
-    // const exportPDF = () => {
-    //     const unit = "pt";
-    //     const size = "A4"; // Use A1, A2, A3 or A4
-    //     const orientation = "portrait"; // portrait or landscape
 
-    //     const marginLeft = 40;
-    //     const doc = new jsPDF(orientation, unit, size);
-
-    //     doc.setFontSize(15);
-
-    //     const title = `Event Name::${event.name}`;
-    //     const headers = [["NAME", "RegNo", "Phone No"]];
-
-    //     const data = newData.map((elt) => [elt.name, elt.regNo, elt.phoneNo]);
-
-    //     let content = {
-    //         startY: 50,
-    //         head: headers,
-    //         body: data,
-    //     };
-
-    //     doc.text(title, marginLeft, 40);
-    //     doc.autoTable(content);
-    //     doc.save(`${event.name}.pdf`);
-    // };
-
-    var myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${authToken}`);
     var requestOptions = {
         method: "GET",
@@ -49,7 +20,7 @@ const Dashboard = () => {
         redirect: "follow",
     };
 
-    let event = location.state;
+    // let event = location.state;
     useEffect(() => {
         const update = () => {
             fetch(`${prodUrl}/auth/getalluser`, requestOptions)

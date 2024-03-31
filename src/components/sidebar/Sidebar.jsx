@@ -2,7 +2,6 @@ import "./sidebar.scss";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Link, useNavigate } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
@@ -16,17 +15,19 @@ const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
   const [clubsList, setclubsList] = useState([]);
   const navigate = useNavigate();
-  useEffect(async () => {
-    const response = await fetch(`${prodUrl}/clubs`, { method: "GET" });
-    const json = await response.json();
-    setclubsList(json);
+  useEffect(() => {
+    fetch(`${prodUrl}/clubs`, { method: "GET" })
+      .then((res) => res.json())
+      .then((json) => setclubsList(json))
+      .catch((error) => console.log(error));
+    // const json = await response.json();
+    // setclubsList(json);
   }, []);
-
   return (
     <div className="sidebar">
       <div className="top">
         <Link to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">Sonabyss Admin</span>
+          <span className="logo">Shristi Admin</span>
         </Link>
       </div>
       <hr />

@@ -11,15 +11,9 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  Navigate,
-  useLocation,
-  useNavigate,
+
 } from "react-router-dom";
-import { user } from "./localStore";
 import Single1 from "./pages/single/Single1";
-import { useEffect } from "react";
-import RequireAuth from "./RequireAuth";
-import { useRef } from "react";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
