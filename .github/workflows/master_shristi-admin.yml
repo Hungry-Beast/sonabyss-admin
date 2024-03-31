@@ -31,7 +31,7 @@ jobs:
 
       - name: Zip artifact to upload
         run: |
-          dir /a
+
           tar -a -c -f node-app.zip build
           # tar -xf node-app.zip
 
@@ -62,6 +62,7 @@ jobs:
         with:
           name: node-app
       - run: |
+          dir /a
           tar -xf node-app.zip
           rm node-app.zip
 
