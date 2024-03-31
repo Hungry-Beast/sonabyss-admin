@@ -31,7 +31,8 @@ jobs:
       
       - name: Zip artifact to upload
         run: |
-          zip -r node-app.zip .
+          tar -xf node-app.zip .
+         
 
 
       - name: Upload artifact for deployment job
