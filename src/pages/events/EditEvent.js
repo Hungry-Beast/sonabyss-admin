@@ -114,6 +114,7 @@ const EditElub = () => {
     // Handle Form Submit
     var myHeaders = new Headers();
     const { authToken } = JSON.parse(localStorage.getItem("user"));
+    console.log(authToken)
     myHeaders.append("Authorization", `Bearer ${authToken}`);
 
     const editRequest = (id, formdata) => {
