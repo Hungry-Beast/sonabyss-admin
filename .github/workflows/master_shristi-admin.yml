@@ -28,21 +28,18 @@ jobs:
         run: |
           npm install
           npm run build --if-present
-      
+
       - name: Zip artifact to upload
         run: |
-          tar -xf node-app.zip .
-         
-
+          dir /a
+          tar -a -c -f node-app.zip build
+          # tar -xf node-app.zip
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
-            name: node-app
-            path: node-app.zip
-
-
-
+          name: node-app
+          path: node-app.zip
 
       # - name: Upload artifact for deployment job
       #   uses: actions/upload-artifact@v3
@@ -65,17 +62,13 @@ jobs:
         with:
           name: node-app
       - run: |
-          unzip node-app.zip
+          tar -xf node-app.zip
           rm node-app.zip
 
-          
       # - name: Download artifact from build job
       #   uses: actions/download-artifact@v3
       #   with:
       #     name: node-app
-
-
-
 
       - name: Login to Azure
         uses: azure/login@v1
