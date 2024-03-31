@@ -11,7 +11,8 @@ on:
       - test
 
 
-
+env:
+  CI: false
 
 
 jobs:
