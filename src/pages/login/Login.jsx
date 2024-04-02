@@ -58,7 +58,7 @@ const Login = () => {
         console.log(result);
         if (result.success) {
           localStorage.setItem("user", JSON.stringify(result));
-
+          window.location.reload();
           // console.log("Hi");
           navigate("/home");
         } else {
