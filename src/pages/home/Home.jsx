@@ -11,7 +11,7 @@ const Home = () => {
   // useEffect(() => {
   useEffect(() => {
     admin.current = JSON.parse(localStorage.getItem("user"));
-    window.location.reload();
+    // window.location.reload();
     if (!admin.current?.authToken) navigate("/login");
   }, []);
 
