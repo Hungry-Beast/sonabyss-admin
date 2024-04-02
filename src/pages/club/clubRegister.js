@@ -98,7 +98,7 @@ const CreateClub = () => {
     e.preventDefault();
     setLoading(true);
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer " + userCurrent.authToken);
+    myHeaders.append("Authorization", "Bearer " + user.authToken);
     // myHeaders.append("Content-Type", "application/json");
     console.log(e.target.poster.files);
     const formdata = new FormData();
